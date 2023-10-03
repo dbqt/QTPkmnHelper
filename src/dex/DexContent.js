@@ -1,16 +1,23 @@
 import { useEffect, useState, useMemo } from "react";
 import { Pokedex } from "pokeapi-js-wrapper";
-import { Accordion, Button, Card } from 'flowbite-react';
-import { TypeList } from "./TypeList";
-import { GetTypeSprite } from "./Helpers";
+import { Accordion, Card } from 'flowbite-react';
+import { TypeList } from "../utils/TypeList";
+import { GetTypeSprite } from "../utils/Helpers";
 
 function Capitalize(input) {
     return input.charAt(0).toUpperCase() + input.slice(1);
 }
 
-export default function Content({ query }) {
-
-    const dex = useMemo(() => new Pokedex(), []);
+export default function DexContent({ query }) {
+    
+    const dex = useMemo(() => {
+        const dexOptions = {
+            cache: true,
+            timeout: 5 * 1000, // 5s
+            cacheImages: true
+        };
+        return new Pokedex(dexOptions);
+    }, []);
 
     const [isLoading, setIsLoading] = useState(false);
     const [queryValue, setQueryValue] = useState("");
@@ -18,12 +25,12 @@ export default function Content({ query }) {
     const [typeChart, setTypeChart] = useState("");
     
     useEffect(() => {
-        console.log("set query");
+        console.log("set query " + query);
         setQueryValue(query);
     });
 
     useEffect(() => {
-        if (queryValue !== "") {
+        if (queryValue) {
             if (Number.isInteger(queryValue)) {
                 dex.getPokemon(queryValue)
                 .then(function(response) {
@@ -82,7 +89,7 @@ export default function Content({ query }) {
                 :
                 (pokemon == null)
                     ?
-                    <Card className="text-2xl tracking-tight text-white bg-slate-700 m-4">No Pokemon selected</Card>
+                    <Card className="text-xl tracking-tight text-white bg-slate-700 m-4">Type the name of a Pokemon</Card>
                     : 
                     <Card className="text-base tracking-tight text-white bg-slate-700 m-4">
                         <p className="text-2xl">{pokemon.id + " " + Capitalize(pokemon.name)}</p>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Combobox } from '@headlessui/react';
-import { PokemonList } from './PokemonList';
+import { PokemonList } from '../utils/PokemonList';
 
 export default function Header({ onSearch }) {
     const [selectedPokemon, setSelectedPokemon] = useState(PokemonList[0])
