@@ -36,6 +36,8 @@ import terasteel from './../assets/teraicons/steel.png';
 import terarock from './../assets/teraicons/rock.png';
 import terawater from './../assets/teraicons/water.png';
 
+import { TypeList } from './TypeList';
+
 export function GetTypeSprite(name) {
     switch (name) {
         case "bug":
@@ -126,4 +128,30 @@ export function GetTeraTypeSprite(name) {
 
 export function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
+}
+
+export async function GenerateTypeMatchups(dex, type1, type2) {
+    
+    let t1 = await dex.getTypeByName(type1);
+    let typing = Object.fromEntries(TypeList.map((k, v) => [k, 1]));
+    t1.damage_relations.double_damage_from.forEach(t => typing[t.name] *= 2.0);
+    t1.damage_relations.half_damage_from.forEach(t => typing[t.name] *= 0.5);
+    t1.damage_relations.no_damage_from.forEach(t => typing[t.name] *= 0.0);
+
+    if (type2 !== null) {
+        let t2 = await dex.getTypeByName(type2);
+        t2.damage_relations.double_damage_from.forEach(t => typing[t.name] *= 2.0);
+        t2.damage_relations.half_damage_from.forEach(t => typing[t.name] *= 0.5);
+        t2.damage_relations.no_damage_from.forEach(t => typing[t.name] *= 0.0);
+    }
+
+    return (TypeList.map(type => 
+    <div className="flex flex-row items-center gap-4 w-28 my-1">
+        <img src={GetTypeSprite(type)} alt={type} className="w-16"/>
+        <p className={classNames("text-center", typing[type] > 1 ? "text-green-300" : typing[type] < 1 ? "text-red-400" : "text-white")}>{typing[type]}</p>
+    </div>));
+}
+
+export function Capitalize(input) {
+    return input.charAt(0).toUpperCase() + input.slice(1);
 }
