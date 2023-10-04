@@ -1,7 +1,7 @@
 {
   "name": "pkmnhelper",
   "version": "0.1.0",
-  "homepage": "https://dbqt.github.io/qtpkmnhelper",
+  "homepage": "https://dbqt.github.io/QTPkmnHelper",
   "private": true,
   "dependencies": {
     "@headlessui/react": "^1.7.17",
