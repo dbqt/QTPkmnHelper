@@ -6,6 +6,7 @@ import { GenerateTypeMatchups, Capitalize } from "../utils/Helpers";
 import { PokemonList } from '../utils/PokemonList';
 import { Disclosure } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/20/solid';
+import dbqt from './../assets/dblogotransparentfat.png';
 
 export default function DexContent({ dex, query }) {
 
@@ -72,6 +73,21 @@ export default function DexContent({ dex, query }) {
         }
     }, [pokemon, currentFormIndex, dex])
 
+    function getPokemonSprite(sprites) {
+        console.log(sprites)
+        if (sprites["front_default"]) {
+            return sprites["front_default"];
+        }
+        else if (sprites["other"]["official-artwork"]["front_default"]) {
+            console.log("official")
+            return sprites["other"]["official-artwork"]["front_default"];
+        }
+        else {
+            console.log("fallback")
+            return dbqt;
+        }
+    }
+
     return (
         <div className="pb-20">
             {   
@@ -89,7 +105,7 @@ export default function DexContent({ dex, query }) {
                             <div className="flex flex-col self-center">
                                 {pokemon[currentFormIndex].types.map((type) => (<img src={GetTypeSprite(type.type.name)} alt={type.type.name} className="w-16 my-1" />))}
                             </div>
-                            <img src={pokemon[currentFormIndex].sprites["front_default"]} alt={pokemon[currentFormIndex].name} className="w-24"/>
+                            <img src={getPokemonSprite(pokemon[currentFormIndex].sprites)} alt={pokemon[currentFormIndex].name} className="w-24"/>
                         </div>
                         <div className="w-full">
                             <div className="pb-1">
@@ -110,7 +126,7 @@ export default function DexContent({ dex, query }) {
                                                 <div className="flex flex-wrap py-2">
                                                         {pokemon.map((p, index) => 
                                                             <button onClick={() => setCurrentFormIndex(index)} className={classNames(" min-w-16 w-16 h-16 rounded-xl mx-1", currentFormIndex == index ? "bg-slate-500" : "")}>
-                                                                <img src={pokemon[index].sprites["front_default"]} alt={pokemon[index].name} />
+                                                                <img src={getPokemonSprite(pokemon[index].sprites)} alt={pokemon[index].name} />
                                                             </button>
                                                         )}
                                                 </div>
