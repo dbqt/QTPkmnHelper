@@ -1,9 +1,9 @@
 import { TypeList } from "../utils/TypeList";
 import { GetTeraTypeSprite, GetTypeSprite, GenerateTypeMatchups, Capitalize } from "../utils/Helpers";
-import { Button, Accordion  } from "flowbite-react";
+import { Button } from "flowbite-react";
 import { useEffect, useState } from "react";
-import { ModalTheme } from "../utils/Theme";
-import { Dialog } from '@headlessui/react'
+import { Dialog, Disclosure } from '@headlessui/react'
+import { ChevronUpIcon, XMarkIcon} from '@heroicons/react/20/solid';
 
 export default function TeraPage({dex}) {
     const [focusedTera, setFocusTera] = useState(undefined);
@@ -35,29 +35,35 @@ export default function TeraPage({dex}) {
             <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
             <div className="fixed inset-0 overflow-y-auto">
                 <div className="flex p-4 text-center justify-center">
-                    <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-xl bg-sky-800 px-4 pt-4 pb-20 text-left align-middle shadow-xl transition-all">
+                    <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-xl bg-slate-700 px-4 pt-4 pb-20 text-left align-middle shadow-xl transition-all">
                         <Dialog.Title>
                             <div className="flex justify-between gap-4 p-4">
                                 <img src={GetTeraTypeSprite(focusedTera)} className="w-12" />
                                 <p className="text-white self-center text-2xl">{Capitalize(focusedTera)}</p>
-                                <button className="w-12 text-2xl" onClick={() => setFocusTera(undefined)}>X</button>
+                                <button className="w-8 text-2xl" onClick={() => setFocusTera(undefined)}><XMarkIcon /></button>
                             </div>
                         </Dialog.Title>
-                        <Accordion className="bg-sky-900">
-                            {/** Type matchups */}
-                            <Accordion.Panel>
-                                <Accordion.Title>
-                                    Damage taken
-                                </Accordion.Title>
-                                <Accordion.Content>
-                                    <div className="space-y-6">
-                                        <div className="flex flex-wrap justify-around">
-                                            {typeReceive}
+                        <Disclosure defaultOpen>
+                                {({ open }) => (
+                                    <div className="border border-slate-600 rounded-lg">
+                                    <Disclosure.Button className="flex w-full justify-between rounded-lg bg-slate-600 px-4 py-2 text-left text-sm font-medium text-white">
+                                        <span>Damage Taken</span>
+                                        <ChevronUpIcon
+                                            className={`${
+                                                open ? 'rotate-180 transform' : ''
+                                            } h-5 w-5 text-white`}
+                                        />
+                                    </Disclosure.Button>
+                                    <Disclosure.Panel>
+                                        <div className="space-y-6">
+                                            <div className="flex flex-wrap justify-around py-2">
+                                                {typeReceive}
+                                            </div>
                                         </div>
+                                    </Disclosure.Panel>
                                     </div>
-                                </Accordion.Content>
-                            </Accordion.Panel>
-                        </Accordion>
+                                )}
+                        </Disclosure>
 
                     </Dialog.Panel>
                 </div>
