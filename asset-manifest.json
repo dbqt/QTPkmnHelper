@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/QTPkmnHelper/static/css/main.a6b4d9d2.css",
-    "main.js": "/QTPkmnHelper/static/js/main.3695003d.js",
+    "main.css": "/QTPkmnHelper/static/css/main.5556c40a.css",
+    "main.js": "/QTPkmnHelper/static/js/main.80b3b971.js",
     "static/js/787.85d0d094.chunk.js": "/QTPkmnHelper/static/js/787.85d0d094.chunk.js",
     "static/media/dblogotransparentfat.png": "/QTPkmnHelper/static/media/dblogotransparentfat.372a2578f7c4df933993.png",
     "static/media/dragon.png": "/QTPkmnHelper/static/media/dragon.d488d3a87fb9cce95c0d.png",
@@ -23,12 +23,12 @@
     "static/media/dark.png": "/QTPkmnHelper/static/media/dark.fc754d088fcae3858061.png",
     "static/media/normal.png": "/QTPkmnHelper/static/media/normal.d30cf4f1c11ecd3a78ce.png",
     "index.html": "/QTPkmnHelper/index.html",
-    "main.a6b4d9d2.css.map": "/QTPkmnHelper/static/css/main.a6b4d9d2.css.map",
-    "main.3695003d.js.map": "/QTPkmnHelper/static/js/main.3695003d.js.map",
+    "main.5556c40a.css.map": "/QTPkmnHelper/static/css/main.5556c40a.css.map",
+    "main.80b3b971.js.map": "/QTPkmnHelper/static/js/main.80b3b971.js.map",
     "787.85d0d094.chunk.js.map": "/QTPkmnHelper/static/js/787.85d0d094.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a6b4d9d2.css",
-    "static/js/main.3695003d.js"
+    "static/css/main.5556c40a.css",
+    "static/js/main.80b3b971.js"
   ]
 }
