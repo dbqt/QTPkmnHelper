@@ -21,7 +21,7 @@ export default function TeraPage({dex}) {
     }, [focusedTera]);
 
     return (
-    <div className="flex flex-wrap justify-evenly pb-20">
+    <div className="grid grid-cols-4 sm:grid-cols-7 justify-evenly pb-20 pt-4">
         {TypeList.map(type => (
             <Button className="p-0 bg-transparent" onClick={() => setFocusTera(type)}>
                 <div className="flex flex-col gap-2">

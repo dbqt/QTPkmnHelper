@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { Card } from 'flowbite-react';
+import { Card, Spinner } from 'flowbite-react';
 import { GetTypeSprite, classNames } from "../utils/Helpers";
 import { GenerateTypeMatchups, Capitalize } from "../utils/Helpers";
 import { PokemonList } from '../utils/PokemonList';
@@ -27,6 +27,7 @@ export default function DexContent({ dex, query }) {
         let id = PokemonList.indexOf(queryValue);
         console.log("querying species " + id);
         if (id) {
+            setIsLoading(true);
             // Use ID
             if (Number.isInteger(id) && id > 0) {
                 dex.getPokemonSpeciesByName(id)
@@ -49,6 +50,7 @@ export default function DexContent({ dex, query }) {
                     pokemonArray.push(p);
                 } 
                 setPokemon(pokemonArray); 
+                setIsLoading(false);
             }
 
             getPokemonSpecies();
@@ -89,16 +91,19 @@ export default function DexContent({ dex, query }) {
     }
 
     return (
-        <div className="pb-20">
+        <div className="pb-20 grid justify-items-center">
             {   
             (isLoading) ? 
-                <Card className="text-2xl tracking-tight text-white bg-slate-700 m-4">Loading</Card>
+                <div className="text-2xl tracking-tight text-white m-12 justify-self-center text-center">
+                    <p className="p-4">Loading...</p>
+                    <Spinner size="xl"/>
+                </div>
                 :
                 (pokemon == null || pokemon[currentFormIndex] == null)
                     ?
-                    <Card className="text-xl tracking-tight text-white bg-slate-700 m-4 border-0">Type the name of a Pokemon</Card>
+                    <Card className="text-xl tracking-tight text-white bg-slate-700 m-4 border-0 text-center">Type the name of a Pokemon in the search bar above</Card>
                     : 
-                    <Card className="text-base tracking-tight text-white bg-slate-700 m-4 border-0">
+                    <Card className="text-base tracking-tight text-white bg-slate-700 m-4 border-0 md:max-w-lg justify-self-center">
                         {/** Basic data */}
                         <p className="text-2xl">{pokemonSpecies.id + " - " + Capitalize(query)}</p>
                         <div className="flex flex-row justify-evenly h-24">
@@ -147,7 +152,7 @@ export default function DexContent({ dex, query }) {
                                             />
                                         </Disclosure.Button>
                                         <Disclosure.Panel>
-                                            <div className="flex flex-wrap justify-around py-2">
+                                            <div className="grid grid-cols-2 md:grid-cols-3 p-2 justify-self-center">
                                                 {typeChart}
                                             </div>
                                         </Disclosure.Panel>

@@ -146,7 +146,7 @@ export async function GenerateTypeMatchups(dex, type1, type2) {
     }
 
     return (TypeList.map(type => 
-    <div className="flex flex-row items-center gap-4 w-28 my-1">
+    <div className="flex flex-row items-center gap-4 w-28 my-1 pl-2">
         <img src={GetTypeSprite(type)} alt={type} className="w-16"/>
         <p className={classNames("text-center", typing[type] > 1 ? "text-green-300" : typing[type] < 1 ? "text-red-400" : "text-white")}>{typing[type]}</p>
     </div>));
